@@ -22,7 +22,7 @@ export default class Invoice extends BaseEntity implements AggregateRoot {
   private _total: number = 0;
 
   constructor(props: InvoiceProps) {
-    super(props.id);
+    super(props.id, props.createdAt, props.updatedAt)
     this._name = props.name;
     this._document = props.document;
     this._address = props.address;
