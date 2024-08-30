@@ -11,7 +11,7 @@ describe("Invoice item unit tests", () => {
         
         expect(invoiceItem.id.id).toBe("1");
         expect(invoiceItem.name).toBe("Item 1");
-        expect(invoiceItem.price()).toBe(100);
+        expect(invoiceItem.price).toBe(100);
     });
     
     it("should throw error when name is empty", () => {

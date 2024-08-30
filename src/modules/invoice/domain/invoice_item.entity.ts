@@ -19,7 +19,7 @@ export default class InvoiceItem extends BaseEntity implements AggregateRoot {
         this.validate();
     }
 
-    price(): number {
+    get price(): number {
         return this._price;
     }
 
