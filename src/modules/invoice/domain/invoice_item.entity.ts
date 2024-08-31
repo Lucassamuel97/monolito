@@ -36,7 +36,7 @@ export default class InvoiceItem extends BaseEntity implements AggregateRoot {
             throw new Error("Name is required");
         }
 
-        if (this._price === 0 || this._price === null) {
+        if (this._price <= 0 || this._price === null) {
             throw new Error("Price is required");
         }
     }
