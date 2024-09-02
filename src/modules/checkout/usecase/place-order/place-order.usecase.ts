@@ -1,4 +1,5 @@
 
+import e from "express";
 import Id from "../../../@shared/domain/value-object/id.value-object";
 import UseCaseInterface from "../../../@shared/usecase/use-case.interface";
 import ClientAdmFacadeInterface from "../../../client-adm/facade/client-adm.facade.interface";
@@ -6,6 +7,8 @@ import ProductAdmFacadeInterface from "../../../product-adm/facade/product-adm.f
 import StoreCatalogFacadeInterface from "../../../store-catalog/facade/store-catalog.facade.interface";
 import Product from "../../domain/product.entity";
 import { PlaceOrderInputDto, PlaceOrderOutputDto } from "./place-order.dto";
+import Client from "../../domain/client.entity";
+import Order from "../../domain/order.entity";
 
 export default class PlaceOrderUseCase implements UseCaseInterface {
     private _clientFacade: ClientAdmFacadeInterface;
@@ -31,14 +34,27 @@ export default class PlaceOrderUseCase implements UseCaseInterface {
             throw new Error("Client not found");
         }
         // validar os produtos
-
         await this.validateProducts(input);
 
-
         // Recuperar o produtos
+        const products = await Promise.all(
+            input.products.map((p) => this.getProduct(p.productId))
+        );
 
         // Criar o objeto do client
+        const myClient = new Client({
+            id: new Id(client.id),
+            name: client.name,
+            email: client.email,
+            address: client.address.street,
+        });
+
         // criar o objeto da order (client, products)
+
+        const order = new Order({
+            client: myClient,
+            products: products,
+        });
 
         // Processar o pagamento -> paymentFacade.process (orderId, amout)
 
@@ -73,7 +89,7 @@ export default class PlaceOrderUseCase implements UseCaseInterface {
         }
     }
 
-    private async getProduct(productId: string) : Promise<Product> {
+    private async getProduct(productId: string): Promise<Product> {
         const product = await this._catalogFacade.find({ id: productId });
         if (!product) {
             throw new Error("Product not found");
