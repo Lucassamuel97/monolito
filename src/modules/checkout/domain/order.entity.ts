@@ -30,6 +30,10 @@ export default class Order extends BaseEntity {
         return this._client;
     }
 
+    get status(): string {
+        return this._status;
+    }
+
     get products(): Product[] {
         return this._products;
     }
@@ -40,4 +44,6 @@ export default class Order extends BaseEntity {
             0
         );
     }
+
+
 }
