@@ -1,6 +1,8 @@
 import { PlaceOrderInputDto } from "./place-order.dto";
 import PlaceOrderUseCase from "./place-order.usecase";
 
+const mockDate = new Date(2000, 1, 1);
+
 describe("PlaceOrderUsecase unit test", () => {
     describe("Validate products method", () => {
         //@ts-expected-error - no params in constructor
@@ -69,7 +71,32 @@ describe("PlaceOrderUsecase unit test", () => {
         });
     });
 
+    describe("getProducts method", () => {
+        beforeAll(() => {
+            jest.useFakeTimers("modern");
+            jest.setSystemTime(mockDate);
+        });
+        afterAll(() => {
+            jest.useRealTimers();
+        });
 
+        //@ts-expected-error - no params in constructor
+        const placeOrderUsecase = new PlaceOrderUseCase();
+
+        it("should throw an error when product not found", async () => {
+            const mockCatalogFacade = {
+                find: jest.fn().mockResolvedValue(null),
+            };
+            
+            //@ts-expected-error - force set catalogFacade
+            placeOrderUsecase["_catalogFacade"] = mockCatalogFacade;
+
+            await expect(placeOrderUsecase["getProduct"]("0")).rejects.toThrow(
+                new Error("Product not found")
+            );
+        });
+
+    });
     describe("execute method", () => {
         it("should throw an error if client is not found", async () => {
             // Arrange
