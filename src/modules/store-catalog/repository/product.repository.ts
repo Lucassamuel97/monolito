@@ -5,7 +5,9 @@ import ProductModel from "./product.model";
 
 export default class ProductRepository implements ProductGateway {
     async findAll(): Promise<Product[]> {
-        const products = await ProductModel.findAll();
+        const productsDb = await ProductModel.findAll();
+        
+        const products = productsDb.map((product) => product.toJSON());
 
         return products.map(
             (product) =>
@@ -18,11 +20,13 @@ export default class ProductRepository implements ProductGateway {
         );
     }
     async find(id: string): Promise<Product> {
-        const product = await ProductModel.findOne({
+        const productDB = await ProductModel.findOne({
             where: {
                 id: id,
             },
         });
+
+        const product = productDB.toJSON();
 
         return new Product({
             id: new Id(product.id),

@@ -35,9 +35,11 @@ describe("ProductRepository test", () => {
         const productRepository = new ProductRepository();
         await productRepository.add(product);
 
-        const productDb = await ProductModel.findOne({
+        const productDbData = await ProductModel.findOne({
             where: { id: productProps.id.id },
         });
+
+        const productDb = productDbData.toJSON();
 
         expect(productProps.id.id).toEqual(productDb.id);
         expect(productProps.name).toEqual(productDb.name);
@@ -60,7 +62,7 @@ describe("ProductRepository test", () => {
         });
 
         const product = await productRepository.find("1");
-
+        
         expect(product.id.id).toEqual("1");
         expect(product.name).toEqual("Product 1");
         expect(product.description).toEqual("Product 1 description");

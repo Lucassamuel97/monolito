@@ -43,7 +43,10 @@ describe("ProductAdmFacade test", () => {
 
         await productFacade.addProduct(input);
 
-        const product = await ProductModel.findOne({ where: { id: "1" } });
+        const productDb = await ProductModel.findOne({ where: { id: "1" } });
+
+        const product = productDb.toJSON();
+        
         expect(product).toBeDefined();
         expect(product.id).toBe(input.id);
         expect(product.name).toBe(input.name);
