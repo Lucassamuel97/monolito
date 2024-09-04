@@ -80,12 +80,17 @@ describe('E2E test for client routes', () => {
 
         const findResponse = await request(app).get(`/clients/${1}`);
 
-        console.log(" Teste Find Response ", findResponse.body);
-
-        // console.log(" teste findResponse ", findResponse)
-        // expect(findResponse.status).toBe(200);
-
+        expect(findResponse.status).toBe(201);
         expect(findResponse.body.name).toBe("Samuca");
+        expect(findResponse.body.email).toBe("samuca@123.com");
+        expect(findResponse.body.document).toBe("1234-5678");
+        expect(findResponse.body.address._street).toBe("Rua 123");
+        expect(findResponse.body.address._number).toBe("99");
+        expect(findResponse.body.address._complement).toBe("Casa Verde");
+        expect(findResponse.body.address._city).toBe("Criciúma");
+        expect(findResponse.body.address._state).toBe("SC");
+        expect(findResponse.body.address._zipCode).toBe("88888-888");
+
     });
 
 })

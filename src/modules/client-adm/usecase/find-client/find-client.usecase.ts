@@ -13,7 +13,6 @@ export default class FindClientUseCase {
   async execute(input: FindClientUseCaseInputDto): Promise<FindClientUseCaseOutputDto> {
     try {
       const result = await this._clientRepository.find(input.id);
-      console.log("teste 4: ", result);
 
       return {
         id: result.id.id,
@@ -33,7 +32,7 @@ export default class FindClientUseCase {
       }
     } catch (error) {
       console.error("Erro ao buscar cliente: ", error);
-      throw error; // ou manipule o erro de alguma forma
+      throw error;
     }   
   }
 } 

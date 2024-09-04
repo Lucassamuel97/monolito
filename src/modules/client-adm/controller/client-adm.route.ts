@@ -36,16 +36,12 @@ clientRoute.post("/", async (req: Request, res: Response) => {
 
 clientRoute.get("/:id", async (req: Request, res: Response) => {
     const usecase = new FindClientUseCase(new ClientRepository());
-    
-    console.log("teste 1: ", req.params.id)
 
     try {
         const output = await usecase.execute({ id: req.params.id });
 
-        console.log("teste 5: ", output)
-
-        res.send(output);
+        res.status(201).send(output);
     } catch (err) {
-        res.status(500).send("erro 500 "+ err);
+        res.status(500).send(err);
     }
 });

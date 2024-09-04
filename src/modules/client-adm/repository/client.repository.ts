@@ -24,35 +24,30 @@ export default class ClientRepository implements ClientGateway {
     })
   }
 
-  async find(id: string): Promise<Client> {
+  async find(id: string): Promise<Client> {    
+    const clientData = await ClientModel.findOne({ where: { id }, raw: false });
 
-
-    console.log("Id passado para o repositoy: ", id)
-    
-    const retorno = await ClientModel.findOne({ where: { id }, raw: false });
-
-    if (!retorno) {
+    if (!clientData) {
       throw new Error("Client not found")
     }
 
-    console.log("Client data:", retorno.toJSON()); 
-    console.log("Erro do retorno ", retorno.name)
+    const client= clientData.toJSON();
 
     return new Client({
-      id: new Id(retorno.id),
-      name: retorno.name,
-      email: retorno.email,
-      document: retorno.document,
+      id: new Id(client.id),
+      name: client.name,
+      email: client.email,
+      document: client.document,
       address: new Address(
-        retorno.street,
-        retorno.number,
-        retorno.complement,
-        retorno.city,
-        retorno.state,
-        retorno.zipCode
+        client.street,
+        client.number,
+        client.complement,
+        client.city,
+        client.state,
+        client.zipCode
       ),
-      createdAt: retorno.createdAt,
-      updatedAt: retorno.updatedAt,
+      createdAt: client.createdAt,
+      updatedAt: client.updatedAt,
     });
   }
 }

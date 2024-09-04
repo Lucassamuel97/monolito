@@ -40,7 +40,6 @@ describe("Client Repository test", () => {
                 "SC",
                 "88888-888"
             )
-            // address: "Rua 123",
         })
 
         const repository = new ClientRepository()
@@ -48,24 +47,26 @@ describe("Client Repository test", () => {
 
         const clientDb = await ClientModel.findOne({ where: { id: "1" } })
 
-        expect(clientDb).toBeDefined()
-        expect(clientDb.id).toEqual(client.id.id)
-        expect(clientDb.name).toEqual(client.name)
-        expect(clientDb.email).toEqual(client.email)
-        expect(clientDb.document).toEqual(client.document)
-        expect(clientDb.street).toEqual(client.address.street)
-        expect(clientDb.number).toEqual(client.address.number)
-        expect(clientDb.complement).toEqual(client.address.complement)
-        expect(clientDb.city).toEqual(client.address.city)
-        expect(clientDb.state).toEqual(client.address.state)
-        expect(clientDb.zipCode).toEqual(client.address.zipCode)
-        expect(clientDb.createdAt).toStrictEqual(client.createdAt)
-        expect(clientDb.updatedAt).toStrictEqual(client.updatedAt)
+        const clientDbToJson = clientDb.toJSON();
+
+        expect(clientDbToJson).toBeDefined()
+        expect(clientDbToJson.id).toEqual(client.id.id)
+        expect(clientDbToJson.name).toEqual(client.name)
+        expect(clientDbToJson.email).toEqual(client.email)
+        expect(clientDbToJson.document).toEqual(client.document)
+        expect(clientDbToJson.street).toEqual(client.address.street)
+        expect(clientDbToJson.number).toEqual(client.address.number)
+        expect(clientDbToJson.complement).toEqual(client.address.complement)
+        expect(clientDbToJson.city).toEqual(client.address.city)
+        expect(clientDbToJson.state).toEqual(client.address.state)
+        expect(clientDbToJson.zipCode).toEqual(client.address.zipCode)
+        expect(clientDbToJson.createdAt).toStrictEqual(client.createdAt)
+        expect(clientDbToJson.updatedAt).toStrictEqual(client.updatedAt)
     })
 
     it("should find a client", async () => {
 
-        const client = await ClientModel.create({
+        const CreateClient = await ClientModel.create({
             id: '1',
             name: 'Samuca',
             email: 'samuca@123.com',
@@ -80,8 +81,10 @@ describe("Client Repository test", () => {
             updatedAt: new Date()
         })
 
+        const client = CreateClient.toJSON();
+
         const repository = new ClientRepository()
-        const result = await repository.find(client.id)
+        const result = await repository.find("1")
 
         expect(result.id.id).toEqual(client.id)
         expect(result.name).toEqual(client.name)
