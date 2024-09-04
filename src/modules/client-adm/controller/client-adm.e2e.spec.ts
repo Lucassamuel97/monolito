@@ -4,6 +4,7 @@ import { Umzug } from "umzug"
 import { ClientModel } from "../repository/client.model";
 import { migrator } from "../../../migrations/config/migrator";
 import { Sequelize } from "sequelize-typescript";
+import ClientRepository from "../repository/client.repository";
 
 
 describe('E2E test for client routes', () => {
@@ -28,7 +29,7 @@ describe('E2E test for client routes', () => {
 
     afterEach(async () => {
         if (!migration || !sequelize) return
-    
+
         migration = migrator(sequelize)
         await migration.down()
         await sequelize.close()
@@ -47,9 +48,7 @@ describe('E2E test for client routes', () => {
                 city: "City",
                 state: "State",
                 zipCode: "85270000"
-        })
-
-        console.log("reposta", response.body)  
+            })
 
         expect(response.status).toBe(201)
         expect(response.body.name).toBe("Samuca")
@@ -61,6 +60,32 @@ describe('E2E test for client routes', () => {
         expect(response.body.address._city).toBe("City")
         expect(response.body.address._state).toBe("State")
         expect(response.body.address._zipCode).toBe("85270000")
+    });
 
-    })
+    it("should find a client", async () => {
+        const client = await ClientModel.create({
+            id: '1',
+            name: 'Samuca',
+            email: 'samuca@123.com',
+            document: "1234-5678",
+            street: "Rua 123",
+            number: "99",
+            complement: "Casa Verde",
+            city: "Criciúma",
+            state: "SC",
+            zipCode: "88888-888",
+            createdAt: new Date(),
+            updatedAt: new Date()
+        })
+
+        const findResponse = await request(app).get(`/clients/${1}`);
+
+        console.log(" Teste Find Response ", findResponse.body);
+
+        // console.log(" teste findResponse ", findResponse)
+        // expect(findResponse.status).toBe(200);
+
+        expect(findResponse.body.name).toBe("Samuca");
+    });
+
 })

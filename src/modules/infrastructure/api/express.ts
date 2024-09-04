@@ -1,7 +1,7 @@
 import express, { Express } from "express";
 import { Sequelize } from "sequelize-typescript";
 import { ClientModel } from "../../client-adm/repository/client.model";
-import { clientRoute } from "../../client-adm/api/client-adm.route";
+import { clientRoute } from "../../client-adm/controller/client-adm.route";
 
 
 export const app: Express = express();

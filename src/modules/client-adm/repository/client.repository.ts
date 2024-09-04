@@ -18,7 +18,7 @@ export default class ClientRepository implements ClientGateway {
       complement: entity.address.complement,
       city: entity.address.city,
       state: entity.address.state,
-      zipcode: entity.address.zipCode,
+      zipCode: entity.address.zipCode,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt
     })
@@ -26,27 +26,33 @@ export default class ClientRepository implements ClientGateway {
 
   async find(id: string): Promise<Client> {
 
-    const client = await ClientModel.findOne({ where: { id } })
 
-    if (!client) {
+    console.log("Id passado para o repositoy: ", id)
+    
+    const retorno = await ClientModel.findOne({ where: { id }, raw: false });
+
+    if (!retorno) {
       throw new Error("Client not found")
     }
 
+    console.log("Client data:", retorno.toJSON()); 
+    console.log("Erro do retorno ", retorno.name)
+
     return new Client({
-      id: new Id(client.id),
-      name: client.name,
-      email: client.email,
-      document: client.document,
+      id: new Id(retorno.id),
+      name: retorno.name,
+      email: retorno.email,
+      document: retorno.document,
       address: new Address(
-        client.street,
-        client.number,
-        client.complement,
-        client.city,
-        client.state,
-        client.zipcode,
+        retorno.street,
+        retorno.number,
+        retorno.complement,
+        retorno.city,
+        retorno.state,
+        retorno.zipCode
       ),
-      createdAt: client.createdAt,
-      updatedAt: client.createdAt
-    })
+      createdAt: retorno.createdAt,
+      updatedAt: retorno.updatedAt,
+    });
   }
 }

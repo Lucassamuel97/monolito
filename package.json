@@ -15,7 +15,8 @@
   "scripts": {
     "test": "npm run tsc -- --noEmit && jest",
     "tsc": "tsc",
-    "migrate": "node -r ts-node/register/transpile-only ./src/migrations/config/migrator-cli.ts"
+    "migrate": "node -r ts-node/register/transpile-only ./src/migrations/config/migrator-cli.ts",
+    "dev": "nodemon src/modules/infrastructure/api/server.ts"
   },
   "dependencies": {
     "@types/express": "^4.17.13",
