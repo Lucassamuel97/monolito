@@ -1,17 +1,17 @@
 import Id from "../../@shared/domain/value-object/id.value-object";
-import Product from "../domain/product.entity";
+import ProductStore from "../domain/product.entity";
 import ProductGateway from "../gateway/product.gateway";
-import ProductModel from "./product.model";
+import ProductStoreModel from "./product.model";
 
 export default class ProductRepository implements ProductGateway {
-    async findAll(): Promise<Product[]> {
-        const productsDb = await ProductModel.findAll();
+    async findAll(): Promise<ProductStore[]> {
+        const productsDb = await ProductStoreModel.findAll();
         
         const products = productsDb.map((product) => product.toJSON());
 
         return products.map(
             (product) =>
-                new Product({
+                new ProductStore({
                     id: new Id(product.id),
                     name: product.name,
                     description: product.description,
@@ -19,8 +19,8 @@ export default class ProductRepository implements ProductGateway {
                 })
         );
     }
-    async find(id: string): Promise<Product> {
-        const productDB = await ProductModel.findOne({
+    async find(id: string): Promise<ProductStore> {
+        const productDB = await ProductStoreModel.findOne({
             where: {
                 id: id,
             },
@@ -28,7 +28,7 @@ export default class ProductRepository implements ProductGateway {
 
         const product = productDB.toJSON();
 
-        return new Product({
+        return new ProductStore({
             id: new Id(product.id),
             name: product.name,
             description: product.description,

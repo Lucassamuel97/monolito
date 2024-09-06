@@ -3,7 +3,7 @@ import request from "supertest";
 import { Umzug } from "umzug"
 import { migrator } from "../../../migrations/config/migrator";
 import { Sequelize } from "sequelize-typescript";
-import ProductModel from "../repository/product.model";
+import ProductStoreModel from "../repository/product.model";
 
 
 describe('E2E test for Store-catalog routes', () => {
@@ -19,7 +19,7 @@ describe('E2E test for Store-catalog routes', () => {
             logging: false,
         })
 
-        sequelize.addModels([ProductModel])
+        sequelize.addModels([ProductStoreModel])
 
         migration = migrator(sequelize)
 
@@ -35,7 +35,7 @@ describe('E2E test for Store-catalog routes', () => {
     })
 
     it("should find product in store-catalog", async () => {
-        const productDb = await ProductModel.create({
+        const productDb = await ProductStoreModel.create({
             id: "1",
             name: "Product 1",
             description: "Product 1 description",
@@ -54,7 +54,7 @@ describe('E2E test for Store-catalog routes', () => {
     });
 
     it("should find all products in store-catalog", async () => {
-        await ProductModel.create({
+        await ProductStoreModel.create({
             id: "1",
             name: "Product 1",
             description: "Product 1 description",
@@ -64,7 +64,7 @@ describe('E2E test for Store-catalog routes', () => {
             updatedAt: new Date(),
         });
 
-        await ProductModel.create({
+        await ProductStoreModel.create({
             id: "2",
             name: "Product 2",
             description: "Product 2 description",

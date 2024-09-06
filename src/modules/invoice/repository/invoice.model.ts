@@ -20,35 +20,35 @@ export default class InvoiceModel extends Model {
     name: string;
 
     @Column({ allowNull: false })
-    document: string
+    document: string;
 
     @Column({ allowNull: false })
-    street: string
+    street: string;
 
     @Column({ allowNull: false })
-    number: string
-
-    @Column({ allowNull: true })
-    complement: string
+    number: string;
 
     @Column({ allowNull: false })
-    city: string
+    complement: string;
 
     @Column({ allowNull: false })
-    state: string
+    city: string;
 
     @Column({ allowNull: false })
-    zipcode: string
+    state: string;
 
-    @HasMany(() => InvoiceItemModel)
+    @Column({ allowNull: false })
+    zipcode: string;
+
+    @HasMany(() => InvoiceItemModel, "invoice_id")
     items: InvoiceItemModel[];
 
     @Column({ allowNull: false })
     total: number;
 
-    @Column({ allowNull: false, field: "created_at" })
+    @Column({ allowNull: false, field: "createdAt" })
     createdAt: Date;
 
-    @Column({ allowNull: false, field: "updated_at" })
+    @Column({ allowNull: false, field: "updatedAt" })
     updatedAt: Date;
 }

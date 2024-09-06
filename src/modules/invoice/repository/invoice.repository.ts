@@ -10,6 +10,7 @@ import InvoiceItemModel from "./invoice_item.model";
 export default class InvoiceRepository implements InvoiceGateway {
 
     async generate(entity: Invoice): Promise<void> {
+        
         await InvoiceModel.create(
             {
                 id: entity.id.id,

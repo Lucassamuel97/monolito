@@ -4,8 +4,6 @@ import { Umzug } from "umzug"
 import { ClientModel } from "../repository/client.model";
 import { migrator } from "../../../migrations/config/migrator";
 import { Sequelize } from "sequelize-typescript";
-import ClientRepository from "../repository/client.repository";
-
 
 describe('E2E test for client routes', () => {
 
