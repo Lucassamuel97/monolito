@@ -18,15 +18,15 @@ export const up: MigrationFn<Sequelize> = async ({ context: sequelize }) => {
     },
     document: {
       type: DataTypes.STRING(255),
-      allowNull: false,
+      allowNull: true,
     },
     street: {
       type: DataTypes.STRING(255),
-      allowNull: false,
+      allowNull: true,
     },
     number: {
       type: DataTypes.STRING(255),
-      allowNull: false,
+      allowNull: true,
     },
     complement: {
       type: DataTypes.STRING(255),
@@ -34,23 +34,23 @@ export const up: MigrationFn<Sequelize> = async ({ context: sequelize }) => {
     },
     city: {
       type: DataTypes.STRING(255),
-      allowNull: false,
+      allowNull: true,
     },
     state: {
       type: DataTypes.STRING(255),
-      allowNull: false,
+      allowNull: true,
     },
     zipCode: {
       type: DataTypes.STRING(255),
-      allowNull: false,
+      allowNull: true,
     },
     createdAt: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
     },
     updatedAt: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
     },
   });
 };

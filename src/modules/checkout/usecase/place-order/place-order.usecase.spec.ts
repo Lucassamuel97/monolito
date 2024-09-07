@@ -2,7 +2,6 @@ import { PlaceOrderInputDto } from "./place-order.dto";
 import PlaceOrderUseCase from "./place-order.usecase";
 import Product from "../../domain/product.entity";
 import Id from "../../../@shared/domain/value-object/id.value-object";
-import { UpdatedAt } from "sequelize-typescript";
 import Address from "../../../@shared/domain/value-object/address";
 
 

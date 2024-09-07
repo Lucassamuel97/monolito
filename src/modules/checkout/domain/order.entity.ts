@@ -8,6 +8,8 @@ type OrderProps = {
     client: Client;
     products: Product[];
     status?: string;
+    createdAt?: Date;
+    updatedAt?: Date;
 };
 
 export default class Order extends BaseEntity {
