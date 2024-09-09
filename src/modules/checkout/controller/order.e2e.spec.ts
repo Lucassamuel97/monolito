@@ -77,7 +77,7 @@ describe('E2E test for Checkout routes', () => {
             .post('/products')
             .send(productInput)
 
-        console.log("Product", responseProduct.body)
+        // console.log("Product", responseProduct.body)
         expect(responseProduct.status).toBe(201)
         expect(responseProduct.body.id).toBe(productInput.id)
         expect(responseProduct.body.name).toBe(productInput.name)
@@ -89,7 +89,7 @@ describe('E2E test for Checkout routes', () => {
             .post('/clients')
             .send(clientInput)
 
-        console.log("Client ", responseClient.body)
+        // console.log("Client ", responseClient.body)
         expect(responseClient.status).toBe(201)
         expect(responseClient.body.id).toBeDefined()
         expect(responseClient.body.name).toBe(clientInput.name)
@@ -123,7 +123,7 @@ describe('E2E test for Checkout routes', () => {
             .post('/checkout')
             .send(Orderinput)
         
-        console.log("Order ", responseOrder.body)
+        // console.log("Order ", responseOrder.body)
         expect(responseOrder.status).toBe(201)
         expect(responseOrder.body.id).toBeDefined()
         expect(responseOrder.body.status).toBe("approved")
@@ -132,7 +132,7 @@ describe('E2E test for Checkout routes', () => {
         
         const responseInvoice = await request(app).get(`/invoice/${responseOrder.body.InvoiceId}`);
 
-        console.log("Invoice ", responseInvoice.body)
+        // console.log("Invoice ", responseInvoice.body)
         expect(responseInvoice.status).toBe(200)
         expect(responseInvoice.body.id).toBeDefined()
         expect(responseInvoice.body.name).toBe("Samuca")

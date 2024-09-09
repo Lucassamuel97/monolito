@@ -90,4 +90,30 @@ describe('E2E test for Store-catalog routes', () => {
         expect(response.body.products[1].salesPrice).toBe(200)
     });
 
+    it("should update sales price in store-catalog", async () => {
+        await ProductStoreModel.create({
+            id: "1",
+            name: "Product 1",
+            description: "Product 1 description",
+            salesPrice: 100,
+            stock: 15,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+        });
+
+        const response = await request(app)
+            .put('/store-catalog/sales-price/1')
+            .send({ salesPrice: 200 })
+
+        expect(response.status).toBe(204)
+
+        const responseFind = await request(app)
+            .get('/store-catalog/1')
+
+        expect(responseFind.status).toBe(200)
+        expect(responseFind.body.id).toBe("1")
+        expect(responseFind.body.name).toBe("Product 1")
+        expect(responseFind.body.salesPrice).toBe(200)
+    });
+
 })

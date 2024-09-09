@@ -65,4 +65,21 @@ describe("StoreCatalogFacade test", () => {
     expect(result.products[1].description).toBe("Description 2");
     expect(result.products[1].salesPrice).toBe(200);
   });
+
+  it("should update sales price", async () => {
+    const facade = StoreCatalogFacadeFactory.create();
+    await ProductStoreModel.create({
+      id: "1",
+      name: "Product 1",
+      description: "Description 1",
+      salesPrice: 100,
+    });
+
+    const result = await facade.updateSalesPrice({ id: "1", salesPrice: 200 });
+
+    expect(result.id).toBe("1");
+    expect(result.name).toBe("Product 1");
+    expect(result.description).toBe("Description 1");
+    expect(result.salesPrice).toBe(200);
+  });
 });
