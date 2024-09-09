@@ -1,4 +1,4 @@
-import { Column, HasMany, HasOne, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { BelongsTo, Column, ForeignKey, HasMany, HasOne, Model, PrimaryKey, Table } from "sequelize-typescript";
 import OrderClientModel from "./order-client.model";
 import OrderProductModel from "./order-product.model";
 
@@ -11,10 +11,11 @@ export default class OrderModel extends Model {
     @Column({ allowNull: false })
     id: string
 
-    @HasOne(() => OrderClientModel, {
-        foreignKey: 'id',
-        sourceKey: 'id',
-    })
+    @ForeignKey(() => OrderClientModel)
+    @Column
+    clientId: number;  // Chave estrangeira para OrderClientModel
+  
+    @BelongsTo(() => OrderClientModel)
     client: OrderClientModel;
 
     @HasMany(() => OrderProductModel, 'orderId')
