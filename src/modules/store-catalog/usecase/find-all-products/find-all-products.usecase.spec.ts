@@ -1,15 +1,15 @@
 import Id from "../../../@shared/domain/value-object/id.value-object";
-import Product from "../../domain/product.entity";
+import ProductStore from "../../domain/product.entity";
 import FindAllProductsUsecase from "./find-all-products.usecase";
 
-const product = new Product({
+const product = new ProductStore({
     id: new Id("1"),
     name: "Product 1",
     description: "Description 1",
     salesPrice: 100,
 });
 
-const product2 = new Product({
+const product2 = new ProductStore({
     id: new Id("2"),
     name: "Product 2",
     description: "Description 2",

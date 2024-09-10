@@ -18,19 +18,20 @@ export default class ClientRepository implements ClientGateway {
       complement: entity.address.complement,
       city: entity.address.city,
       state: entity.address.state,
-      zipcode: entity.address.zipCode,
+      zipCode: entity.address.zipCode,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt
     })
   }
 
-  async find(id: string): Promise<Client> {
+  async find(id: string): Promise<Client> {    
+    const clientData = await ClientModel.findOne({ where: { id }, raw: false });
 
-    const client = await ClientModel.findOne({ where: { id } })
-
-    if (!client) {
+    if (!clientData) {
       throw new Error("Client not found")
     }
+
+    const client= clientData.toJSON();
 
     return new Client({
       id: new Id(client.id),
@@ -43,10 +44,10 @@ export default class ClientRepository implements ClientGateway {
         client.complement,
         client.city,
         client.state,
-        client.zipcode,
+        client.zipCode
       ),
       createdAt: client.createdAt,
-      updatedAt: client.createdAt
-    })
+      updatedAt: client.updatedAt,
+    });
   }
 }

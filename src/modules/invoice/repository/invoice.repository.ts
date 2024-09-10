@@ -10,6 +10,7 @@ import InvoiceItemModel from "./invoice_item.model";
 export default class InvoiceRepository implements InvoiceGateway {
 
     async generate(entity: Invoice): Promise<void> {
+        
         await InvoiceModel.create(
             {
                 id: entity.id.id,
@@ -38,13 +39,15 @@ export default class InvoiceRepository implements InvoiceGateway {
 
     async find(id: string): Promise<Invoice> {
         try {
-            const invoiceModel = await InvoiceModel.findOne({
+            const invoiceModelDb = await InvoiceModel.findOne({
                 where: { id },
                 rejectOnEmpty: true,
                 include: [{ model: InvoiceItemModel, as: "items" }],
             });
 
-            const items: InvoiceItem[] = invoiceModel.items.map((item) =>
+            const invoiceModel = invoiceModelDb.toJSON();
+
+            const items: InvoiceItem[] = invoiceModel.items.map((item: any) =>
                 new InvoiceItem({
                     id: new Id(item.id),
                     name: item.name,

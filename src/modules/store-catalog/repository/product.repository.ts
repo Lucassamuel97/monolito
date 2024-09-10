@@ -1,15 +1,17 @@
 import Id from "../../@shared/domain/value-object/id.value-object";
-import Product from "../domain/product.entity";
+import ProductStore from "../domain/product.entity";
 import ProductGateway from "../gateway/product.gateway";
-import ProductModel from "./product.model";
+import ProductStoreModel from "./product.model";
 
 export default class ProductRepository implements ProductGateway {
-    async findAll(): Promise<Product[]> {
-        const products = await ProductModel.findAll();
+    async findAll(): Promise<ProductStore[]> {
+        const productsDb = await ProductStoreModel.findAll();
+        
+        const products = productsDb.map((product) => product.toJSON());
 
         return products.map(
             (product) =>
-                new Product({
+                new ProductStore({
                     id: new Id(product.id),
                     name: product.name,
                     description: product.description,
@@ -17,18 +19,39 @@ export default class ProductRepository implements ProductGateway {
                 })
         );
     }
-    async find(id: string): Promise<Product> {
-        const product = await ProductModel.findOne({
+    async find(id: string): Promise<ProductStore> {
+        const productDB = await ProductStoreModel.findOne({
             where: {
                 id: id,
             },
         });
 
-        return new Product({
+        const product = productDB.toJSON();
+
+        return new ProductStore({
             id: new Id(product.id),
             name: product.name,
             description: product.description,
             salesPrice: product.salesPrice,
         });
+    }
+
+    async update(product: ProductStore): Promise<void> {
+        try {
+        await ProductStoreModel.update(
+            {
+                name: product.name,
+                description: product.description,
+                salesPrice: product.salesPrice,
+            },
+            {
+                where: {
+                    id: product.id.id,
+                },
+            }
+        );
+        } catch (error) {
+            throw new Error("Product not found");
+        }
     }
 }

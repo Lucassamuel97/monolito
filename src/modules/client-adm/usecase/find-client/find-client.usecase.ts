@@ -11,24 +11,28 @@ export default class FindClientUseCase {
   }
 
   async execute(input: FindClientUseCaseInputDto): Promise<FindClientUseCaseOutputDto> {
+    try {
+      const result = await this._clientRepository.find(input.id);
 
-    const result = await this._clientRepository.find(input.id)
-
-    return {
-      id: result.id.id,
-      name: result.name,
-      email: result.email,
-      document: result.document,
-      address: new Address(
-        result.address.street,
-        result.address.number,
-        result.address.complement,
-        result.address.city,
-        result.address.state,
-        result.address.zipCode,
-      ),
-      createdAt: result.createdAt,
-      updatedAt: result.updatedAt
-    }
+      return {
+        id: result.id.id,
+        name: result.name,
+        email: result.email,
+        document: result.document,
+        address: new Address(
+          result.address.street,
+          result.address.number,
+          result.address.complement,
+          result.address.city,
+          result.address.state,
+          result.address.zipCode,
+        ),
+        createdAt: result.createdAt,
+        updatedAt: result.updatedAt
+      }
+    } catch (error) {
+      console.error("Erro ao buscar cliente: ", error);
+      throw error;
+    }   
   }
 } 

@@ -11,7 +11,7 @@ describe("Invoice Facade test", () => {
         sequelize = new Sequelize({
             dialect: 'sqlite',
             storage: ':memory:',
-            logging: false,
+            logging:false,
             sync: { force: true }
         })
 
@@ -49,10 +49,12 @@ describe("Invoice Facade test", () => {
         // gera o id para seguir o  DTO Generate do exercicio 
         const result = await facade.generate(input)
 
-        const findresult = await InvoiceModel.findOne({
+        const findresultDb = await InvoiceModel.findOne({
             where: { id: result.id },
             include: ["items"],
         });
+
+        const findresult = findresultDb.toJSON();
 
         expect(findresult.id).toBeDefined();
         expect(findresult.name).toBe(input.name);

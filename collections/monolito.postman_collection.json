@@ -1,0 +1,208 @@
+{
+	"info": {
+		"_postman_id": "5294844e-ab30-456b-819a-458b088f4c52",
+		"name": "monolito",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:3000/clients",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Teste Postman\",\r\n    \"email\": \"samuca@gmail.com\",\r\n    \"document\": \"36456789\",\r\n    \"street\": \"Street\",\r\n    \"number\": \"36\",\r\n    \"complement\": \"Complement\",\r\n    \"city\": \"City\",\r\n    \"state\": \"State\",\r\n    \"zipCode\": \"85270000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/clients",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"clients"
+					]
+				},
+				"description": "Created client adm"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/clients/2447ab06-e20d-45b7-8f4f-d0f7b612e088",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/clients/f455511f-fcdf-41cd-ad0d-e52d548924ff",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"clients",
+						"f455511f-fcdf-41cd-ad0d-e52d548924ff"
+					]
+				},
+				"description": "Find Client-adm"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/invoice/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/invoice/cb2aa9a2-032d-4fdc-8f59-74dacf156ab5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"invoice",
+						"cb2aa9a2-032d-4fdc-8f59-74dacf156ab5"
+					]
+				},
+				"description": "Invoice Get"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/products",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"p1\",\r\n    \"name\": \"Teste Product\",\r\n    \"description\": \"Teste desc\",\r\n    \"purchasePrice\": 20,\r\n    \"stock\": 15\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"products"
+					]
+				},
+				"description": "save product"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/checkout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"clientId\": \"0b04924c-ecc6-4928-8f8d-42d56bb933b8\",\r\n    \"products\": [\r\n        {\r\n            \"productId\": \"p1\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/checkout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"checkout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/store-catalog/sales-price/p1",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"p1\",\r\n    \"salesPrice\": 200\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/store-catalog/sales-price/p1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"store-catalog",
+						"sales-price",
+						"p1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/store-catalog/p1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/store-catalog/p1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"store-catalog",
+						"p1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/store-catalog/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/store-catalog/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"store-catalog",
+						""
+					]
+				},
+				"description": "Find all store catalog"
+			},
+			"response": []
+		}
+	]
+}

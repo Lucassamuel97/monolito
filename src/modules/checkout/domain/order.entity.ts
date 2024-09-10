@@ -8,6 +8,8 @@ type OrderProps = {
     client: Client;
     products: Product[];
     status?: string;
+    createdAt?: Date;
+    updatedAt?: Date;
 };
 
 export default class Order extends BaseEntity {
@@ -30,6 +32,10 @@ export default class Order extends BaseEntity {
         return this._client;
     }
 
+    get status(): string {
+        return this._status;
+    }
+
     get products(): Product[] {
         return this._products;
     }
@@ -40,4 +46,6 @@ export default class Order extends BaseEntity {
             0
         );
     }
+
+
 }

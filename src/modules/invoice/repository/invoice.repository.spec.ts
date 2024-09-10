@@ -1,12 +1,11 @@
 import { Sequelize } from "sequelize-typescript"
 import Invoice from "../domain/invoice.entity";
-import InvoiceModel from "./invoice.model";
 import InvoiceItemModel from "./invoice_item.model";
+import InvoiceModel from "./invoice.model";
 import Address from "../../@shared/domain/value-object/address";
 import Id from "../../@shared/domain/value-object/id.value-object";
 import InvoiceItem from "../domain/invoice_item.entity";
 import InvoiceRepository from "./invoice.repository";
-import e from "express";
 
 describe("Invoice Repository test", () => {
 
@@ -51,9 +50,12 @@ describe("Invoice Repository test", () => {
         })
 
         const repository = new InvoiceRepository()
-        await repository.generate(invoice)
+        await repository.generate(invoice);
 
         const result = await InvoiceModel.findOne({ where: { id: "123" }, include: ["items"] })
+        
+        // Converte
+        const invoiceDb = result.toJSON();
 
         expect(result.toJSON()).toStrictEqual({
             id: "123",
@@ -66,8 +68,8 @@ describe("Invoice Repository test", () => {
             state: "SC",
             zipcode: "88888-888",
             total: 100,
-            createdAt: result.createdAt,
-            updatedAt: result.updatedAt,
+            createdAt: invoiceDb.createdAt,
+            updatedAt: invoiceDb.updatedAt,
             items: [
                 {
                     id: "1",
