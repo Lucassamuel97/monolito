@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: node_app
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    environment:
+      - NODE_ENV=development
+    stdin_open: true
+    tty: true
+    command: /bin/sh -c "apt-get update && apt-get install -y sqlite3 && npm install && npm install @swc/core@latest @swc/jest@latest && npm rebuild sqlite3 && npm run dev"

@@ -54,3 +54,8 @@ npm run dev
 ```bash
     docker-compose up --build
 ```
+
+### Importando as Collections no Postman
+
+Para facilitar o uso e teste das APIs do projeto, disponibilizamos uma collection do Postman.
+o arquivo está no diretorio `collections/monolito.postman_collection.json`.
