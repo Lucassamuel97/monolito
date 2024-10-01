@@ -10,10 +10,11 @@
     "jest": "^27.5.1",
     "supertest": "^6.2.2",
     "ts-node": "^10.6.0",
-    "typescript": "^4.5.5"
+    "typescript": "^5.6.2"
   },
   "scripts": {
-    "test": "npm run tsc -- --noEmit && jest",
+    "type-check": "tsc --noEmit",
+    "test": "jest",
     "tsc": "tsc",
     "migrate": "node -r ts-node/register/transpile-only ./src/migrations/config/migrator-cli.ts",
     "dev": "nodemon src/modules/infrastructure/api/server.ts"
